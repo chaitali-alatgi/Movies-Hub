@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="movie"
+            type="com.example.movieshub.app.presentation.details.ReviewAdapter" />
+    </data>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="@dimen/review_width"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginRight="@dimen/ten"
+        android:paddingTop="@dimen/ten"
+        android:paddingBottom="@dimen/ten"
+        android:background="@drawable/grey_border_white_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:cardCornerRadius="@dimen/five">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/ten">
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="The Marvels"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/text_title"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_normal"
+                android:lines="6"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/ten"
+                app:layout_constraintTop_toBottomOf="@id/tv_author"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:maxLines="1"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/twenty"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

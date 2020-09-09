@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movies Hub</string>
+    <string name="u_a">U/A</string>
+    <string name="a">A</string>
+    <string name="likes">likes</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_data">No data available</string>
+    <string name="network_connection">Please check your network</string>
+    <string name="reviews">Reviews</string>
+</resources>

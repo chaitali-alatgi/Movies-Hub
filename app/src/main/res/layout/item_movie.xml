@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="movie"
+            type="com.example.movieshub.app.presentation.main.MovieAdapter.Holder" />
+    </data>
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_margin="@dimen/five"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:cardCornerRadius="@dimen/five">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/ten">
+
+            <ImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@drawable/background_center_img"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="The Marvels"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/ten"
+                android:paddingLeft="@dimen/five"
+                android:paddingRight="@dimen/five"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/text_title"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/iv_poster"
+                app:layout_constraintRight_toLeftOf="@id/tv_is_adult"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/ll_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/five"
+                android:paddingRight="@dimen/five"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <TextView
+                android:id="@+id/tv_is_adult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:background="@drawable/black_rounded_background"
+                tools:text="U/A"
+                android:gravity="center"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="@dimen/ten"
+                android:layout_marginRight="@dimen/ten"
+                app:layout_constraintLeft_toRightOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@id/iv_poster"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

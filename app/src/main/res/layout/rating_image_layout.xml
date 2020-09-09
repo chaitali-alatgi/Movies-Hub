@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="rating"
+            type="com.example.movieshub.app.presentation.main.MovieAdapter.Holder" />
+    </data>
+    <ImageView android:layout_width="@dimen/ten"
+        android:layout_height="@dimen/ten"
+        android:layout_marginRight="@dimen/two"
+        xmlns:android="http://schemas.android.com/apk/res/android" />
+</layout>
