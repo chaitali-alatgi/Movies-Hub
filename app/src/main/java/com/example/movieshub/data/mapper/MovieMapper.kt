@@ -7,12 +7,12 @@ import com.example.movieshub.domain.model.movie_list.Result
 import com.example.movieshub.domain.model.Review
 import javax.inject.Inject
 
-class MovieMapper @Inject constructor() {
+class MovieMapper @Inject constructor(): IMapper<MovieResponse, Movie> {
 
-    fun mapMovieResponse(response: MovieResponse): Movie {
+    override fun map(input: MovieResponse): Movie {
         return Movie(
-            id = response.id,
-            results = response.results.map { it ->
+            id = input.id,
+            results = input.results.map { it ->
                 Result(
                     id = it.id,
                     original_title = it.original_title,
@@ -28,8 +28,8 @@ class MovieMapper @Inject constructor() {
                     vote_count = it.vote_count
                 )
             },
-            total_pages = response.total_pages,
-            page = response.page
+            total_pages = input.total_pages,
+            page = input.page
         )
     }
 

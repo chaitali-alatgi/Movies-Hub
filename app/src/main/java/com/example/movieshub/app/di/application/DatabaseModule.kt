@@ -1,8 +1,8 @@
 package com.example.movieshub.app.di.application
 
-import com.example.movieshub.BaseApplication
-import com.example.movieshub.data.database.AppDatabase
-import com.example.movieshub.data.database.MovieDao
+import com.example.movieshub.ui.BaseApplication
+import com.example.movieshub.data.source.database.AppDatabase
+import com.example.movieshub.data.source.database.MovieDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

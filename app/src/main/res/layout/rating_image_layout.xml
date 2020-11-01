@@ -3,7 +3,7 @@
     <data>
         <variable
             name="rating"
-            type="com.example.movieshub.app.presentation.main.MovieAdapter.Holder" />
+            type="com.example.movieshub.ui.movie_list.MovieAdapter.Holder" />
     </data>
     <ImageView android:layout_width="@dimen/ten"
         android:layout_height="@dimen/ten"

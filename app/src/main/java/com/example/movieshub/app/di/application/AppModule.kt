@@ -1,7 +1,7 @@
 package com.example.movieshub.app.di.application
 
 import android.content.Context
-import com.example.movieshub.BaseApplication
+import com.example.movieshub.ui.BaseApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

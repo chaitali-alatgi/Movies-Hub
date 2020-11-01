@@ -1,85 +1,51 @@
 package com.example.movieshub.data.repository
 
-import com.example.movieshub.data.database.AppDatabase
+import com.example.movieshub.data.source.database.AppDatabase
 import com.example.movieshub.data.mapper.MovieMapper
-import com.example.movieshub.data.network.NetworkApiRequest
+import com.example.movieshub.data.source.database.DiskDataSource
+import com.example.movieshub.data.source.network.NetworkDataSource
+import com.example.movieshub.domain.model.Response
 import com.example.movieshub.domain.model.Review
 import com.example.movieshub.domain.model.movie_list.Movie
 import com.example.movieshub.domain.repository.MovieRepository
+import com.example.movieshub.domain.usecase.movie_list.GetMovieListRequest
 import com.example.movieshub.utils.CustomException
 import com.example.movieshub.utils.InternetUtil
 import io.reactivex.Observable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import java.io.IOException
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val movieMapper: MovieMapper,
-    private val networkApiRequest: NetworkApiRequest,
-    private val appDatabase: AppDatabase
+    private val networkDataSource: NetworkDataSource,
+    private val diskDataSource: DiskDataSource
 ): MovieRepository  {
 
-    override fun getMoviesList(currentId: Int, pageNumber: Int): Observable<Movie> {
-        if(InternetUtil.isInternetOn()) {
-            var movie=
-                networkApiRequest.getMoviesListRequest(currentId, pageNumber)
-                .map {
-                    movieMapper.mapMovieResponse(it)
-                }
-            saveMovieToRoomDatabase(movie)
-            return movie
-        } else {
-            return getMoviesFromDatabase(currentId, pageNumber)
-        }
-    }
-
-    private fun saveMovieToRoomDatabase(response: Observable<Movie>) {
-        response.subscribeOn(Schedulers.io()).subscribe(
-            Consumer {
-                appDatabase.movieDao().addAllMovies(it)
+    override suspend fun getMoviesList(request: GetMovieListRequest): Response<Movie> {
+        if (InternetUtil.isNetworkAvailable()) {
+            var movieResponse =
+                networkDataSource.getMoviesListRequest(request.currentID, request.currentPage)
+            if (movieResponse is Response.Success) {
+                diskDataSource.insertMovieToDatabase(movieMapper.map(movieResponse.data))
+                return Response.Success(movieMapper.map(movieResponse.data))
             }
-        )
-    }
-
-    private fun getMoviesFromDatabase(currentId: Int, pageNumber: Int): Observable<Movie> {
-        return Observable.fromCallable {
-            var savedMovies = appDatabase.movieDao().getAllMovies(currentId, pageNumber)
-            if(savedMovies == null || (savedMovies.results.isNullOrEmpty())) {
-                throw CustomException(CustomException.ERROR_CODE.NO_DATA)
-            }
-            return@fromCallable savedMovies
         }
+        return Response.Error(IOException())
     }
 
     override fun getReviewList(movieId: Int): Observable<List<Review>> {
-            if(InternetUtil.isInternetOn()) {
+            if(InternetUtil.isNetworkAvailable()) {
                 var reviewResponse=
-                    networkApiRequest.getReviewsRequest(movieId)
+                    networkDataSource.getReviewsRequest(movieId)
                     .map {
                         movieMapper.mapReviewResponse(movieId, it)
                     }
-                saveReviewsToRoomDatabase(reviewResponse)
+             //   diskDataSource.saveReviewsToRoomDatabase(reviewResponse)
                 return reviewResponse
             } else {
-                return getAllReviewsFromDatabase(movieId)
-            }
-        }
-
-        private fun saveReviewsToRoomDatabase(reviewResponse: Observable<List<Review>>) {
-            reviewResponse.subscribeOn(Schedulers.io()).subscribe(
-                Consumer {
-                    appDatabase.movieDao().addReviewList(it)
-                }
-            )
-        }
-
-        private fun getAllReviewsFromDatabase(movieId: Int): Observable<List<Review>> {
-            return Observable.fromCallable {
-                var savedReviews = appDatabase.movieDao().getReviewList(movieId)
-                if(savedReviews == null || savedReviews.isNullOrEmpty()) {
-                    throw CustomException(CustomException.ERROR_CODE.NO_DATA)
-                }
-                return@fromCallable savedReviews
+                return diskDataSource.getAllReviewsFromDatabase(movieId)
             }
         }
 }

@@ -1,14 +1,14 @@
 package com.example.movieshub.app.di.application
 
-import com.example.movieshub.BaseApplication
+import com.example.movieshub.ui.BaseApplication
 import com.example.movieshub.BuildConfig
-import com.example.movieshub.data.network.INetworkEndpoint
+import com.example.movieshub.data.source.network.INetworkEndpoint
 import com.example.movieshub.utils.BASE_URL
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.*
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -49,7 +49,7 @@ class NetworkModule(private val application: BaseApplication) {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val builder = Retrofit.Builder()
         builder.baseUrl(BASE_URL)
-        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        builder.addCallAdapterFactory(CoroutineCallAdapterFactory())
         builder.addConverterFactory(GsonConverterFactory.create())
         builder.client(okHttpClient)
         return builder.build()

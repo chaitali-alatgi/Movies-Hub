@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.lifecycle.LiveData
-import com.example.movieshub.BaseApplication
+import com.example.movieshub.ui.BaseApplication
 
 object InternetUtil : LiveData<Boolean>() {
 
@@ -18,7 +18,7 @@ object InternetUtil : LiveData<Boolean>() {
         this.application = application
     }
 
-    fun isInternetOn(): Boolean {
+    fun isNetworkAvailable(): Boolean {
         val cm =
             application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo

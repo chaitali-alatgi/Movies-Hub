@@ -15,7 +15,7 @@ class CustomException constructor(
     }
 
     fun showErrorMessage(context: Context) {
-        if(InternetUtil.isInternetOn()) {
+        if(InternetUtil.isNetworkAvailable()) {
             Toast.makeText(context, context.getString(R.string.network_connection), Toast.LENGTH_LONG)
                 .show()
         } else {

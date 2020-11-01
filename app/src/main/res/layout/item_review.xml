@@ -3,7 +3,7 @@
     <data>
         <variable
             name="movie"
-            type="com.example.movieshub.app.presentation.details.ReviewAdapter" />
+            type="com.example.movieshub.ui.details.ReviewAdapter.Holder" />
     </data>
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
